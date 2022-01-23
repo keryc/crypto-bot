@@ -1,4 +1,6 @@
 {
+    "max_open_trades": 5,
+    "position_adjustment_enable": true,
     "exchange": {
         "name": "binance",
         "key": "",                     
@@ -26,7 +28,8 @@
             "AVAX/USDT"
         ],
         "pair_blacklist": [
-            "BNB/.*"
+            "BNB/.*",
+            "SHIB/USDT"
         ]
     },
     "pairlists": [

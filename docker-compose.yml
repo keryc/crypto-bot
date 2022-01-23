@@ -2,10 +2,11 @@
 version: '3'
 services:
   freqtrade:
-    image: freqtradeorg/freqtrade:stable
+    # image: freqtradeorg/freqtrade:stable
     # image: freqtradeorg/freqtrade:develop
     # Use plotting image
     # image: freqtradeorg/freqtrade:develop_plot
+    image: freqtradeorg/freqtrade:stable_plot
     # Build step - only needed when additional dependencies are needed
     # build:
     #   context: .
