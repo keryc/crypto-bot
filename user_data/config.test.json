@@ -1,0 +1,37 @@
+{
+    "exchange": {
+        "name": "binance",
+        "key": "",                     
+        "secret": "",
+        "ccxt_config": {},
+        "ccxt_async_config": {},
+        "pair_whitelist": [
+            "BTC/USDT",
+            "ETH/USDT",
+            "LUNA/USDT",
+            "FTM/USDT",
+            "SOL/USDT",
+            "ADA/USDT",
+            "XRP/USDT",
+            "DOT/USDT",
+            "SHIB/USDT",
+            "MATIC/USDT",
+            "ATOM/USDT",
+            "NEAR/USDT",
+            "SAND/USDT",
+            "LINK/USDT",
+            "DOGE/USDT",
+            "GALA/USDT",
+            "ROSE/USDT",
+            "AVAX/USDT"
+        ],
+        "pair_blacklist": [
+            "BNB/.*"
+        ]
+    },
+    "pairlists": [
+        {
+            "method": "StaticPairList"
+        }
+    ],
+}
