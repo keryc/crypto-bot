@@ -1,6 +1,4 @@
 {
-    "max_open_trades": 5,
-    "position_adjustment_enable": true,
     "exchange": {
         "name": "binance",
         "key": "",                     
@@ -29,7 +27,6 @@
         ],
         "pair_blacklist": [
             "BNB/.*",
-            "SHIB/USDT"
         ]
     },
     "pairlists": [
