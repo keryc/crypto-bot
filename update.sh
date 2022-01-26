@@ -25,5 +25,5 @@ if [[ $GITRESPONSE != $UPDATED ]]; then
                 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 fi
 
-# add TG_TOKEN and TG_CHAT_ID
+# Add TG_TOKEN and TG_CHAT_ID
 # crontab -e ; 1; 2-59/5 * * * * /bin/bash -c "/home/admin/crypto-bot/update.sh"
