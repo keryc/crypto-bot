@@ -44,7 +44,13 @@ make test EXCHANGE=binance STRATEGY=SampleStrategy
 
 ***If you want to backtest the `NostalgiaForInfinityX` strategy you must download the data for `'5m 15m 1h 1d'`***
 ____
-Created by [Keryc Díaz](https://kerycdiaz.com/sobre-mi) | Software Engineer at Fintech
+## Disclaimer
 
+This is a personal experimentation software. Do not risk money which
+you are afraid to lose. USE THE SOFTWARE AT YOUR OWN RISK. THE AUTHORS
+AND ALL AFFILIATES ASSUME NO RESPONSIBILITY FOR YOUR TRADING RESULTS.
+____
 
+## Credits
 
+Created by [Keryc Díaz](https://www.linkedin.com/in/kerycdiaz/), NostalgiaForInfinity maintained by [Iterativ](https://github.com/iterativv).
