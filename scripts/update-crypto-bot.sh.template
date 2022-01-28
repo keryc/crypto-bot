@@ -26,4 +26,5 @@ if [[ $GITRESPONSE != $UPDATED ]]; then
 fi
 
 # Add TG_TOKEN and TG_CHAT_ID
-# crontab -e ; 1; 2-59/5 * * * * /bin/bash -c "/home/admin/crypto-bot/update.sh"
+# crontab -e ; 1;
+# 2-59/5 * * * * /bin/bash -c "/home/admin/crypto-bot/scripts/update-crypto-bot.sh"
