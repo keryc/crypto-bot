@@ -37,7 +37,7 @@ make download-data EXCHANGE=binance TIMERANGE=20210101-20210201 TIMEFRAME='5m'
 make list-data EXCHANGE=binance
 ```
 
-**Know the downloaded pairs and their temporality**
+**Running backtesting for a defined strategy**
 ```bash
 make test EXCHANGE=binance STRATEGY=SampleStrategy
 ```
