@@ -28,7 +28,7 @@ test-pairlist:
 	$(FREQTRADE_RUN) test-pairlist $(CONFIG_TEST) --quote $(or $(QUOTE),USDT)
 
 download-data:
-	$(FREQTRADE_RUN) download-data  $(CONFIG_TEST) $(TIME_DATA)
+	$(FREQTRADE_RUN) download-data  $(CONFIG_TEST) --exchange $(or $(EXCHANGE),binance) $(TIME_DATA)
 
 test:
 	$(FREQTRADE_RUN) backtesting $(CONFIG) $(CONFIG_TEST) $(TEST_ARGS)
