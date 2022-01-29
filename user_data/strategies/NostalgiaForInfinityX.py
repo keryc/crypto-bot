@@ -107,7 +107,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 2
 
     def version(self) -> str:
-        return "v11.0.110"
+        return "v11.0.112"
 
     # ROI table:
     minimal_roi = {
@@ -2480,6 +2480,7 @@ class NostalgiaForInfinityX(IStrategy):
         if (
                 (current_time - timedelta(minutes=30) > trade.open_date_utc)
                 and (trade.open_date_utc + timedelta(minutes=13000) > current_time)
+                and (last_candle['close'] < last_candle['ema_200'])
         ):
             if (-0.12 <= current_profit < -0.08):
                 if (last_candle['close'] < last_candle['atr_high_thresh_1']) and (previous_candle_1['close'] > previous_candle_1['atr_high_thresh_1']) and (last_candle['cmf'] < -0.0):
@@ -9691,7 +9692,6 @@ class NostalgiaForInfinityX(IStrategy):
                     # Logic
                     item_buy_logic.append(dataframe['rsi_14'] < 32.0)
                     item_buy_logic.append(dataframe['r_14'] < -90.0)
-                    item_buy_logic.append(dataframe['rsi_14_1h'] < 80.0)
                     item_buy_logic.append(dataframe['r_480_1h'] < -15.0)
 
                 # Condition #41 - 15m. Semi swing. Local dip. BTC not downtrend.
