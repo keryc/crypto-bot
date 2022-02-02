@@ -22,6 +22,16 @@ docker-compose up -d
 To access FreqUI go to `http://localhost:8080/` and register a new bot with the username and password that indicates the `config.private.json` ***(You can change it at any time)***. In the same file you can activate telegram notifications, configure the exchange credentials and disable dry-run mode.
 
 
+## Automatically Update Crypto Bot
+
+```bash
+cd ${HOME}/crypto-bot/scripts
+cp update-crypto-bot.sh.template update-crypto-bot.sh
+# In update-crypto-bot.sh, add TG_TOKEN, TG_CHAT_ID and confirm the CRYPTO_BOT_PATH
+chmod -x active-crontab.sh && ./active-crontab.sh
+```
+
+
 ## Backtesting
 
 If not already done, install Make: `sudo apt install make`<br>

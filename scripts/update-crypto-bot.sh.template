@@ -1,9 +1,9 @@
 #!/bin/bash
 
-TG_CHAT_ID=""
 TG_TOKEN=""
+TG_CHAT_ID=""
 
-CRYPTO_BOT_PATH="/home/admin/crypto-bot" && cd $CRYPTO_BOT_PATH
+CRYPTO_BOT_PATH="${HOME}/crypto-bot" && cd $CRYPTO_BOT_PATH
 
 GITRESPONSE=`git pull` && UPDATED='Already up to date.'
 
@@ -24,7 +24,3 @@ if [[ $GITRESPONSE != $UPDATED ]]; then
                 --data "chat_id=$TG_CHAT_ID" \
                 "https://api.telegram.org/bot${TG_TOKEN}/sendMessage"
 fi
-
-# Add TG_TOKEN and TG_CHAT_ID
-# crontab -e ; 1;
-# 2-59/5 * * * * /bin/bash -c "/home/admin/crypto-bot/scripts/update-crypto-bot.sh"

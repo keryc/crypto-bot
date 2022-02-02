@@ -25,8 +25,8 @@ services:
       trade
       --logfile /freqtrade/user_data/logs/freqtrade.log
       --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
-      --config /freqtrade/user_data/ntf_configs/pairlist-volume-binance-usdt.json
-      --config /freqtrade/user_data/ntf_configs/blacklist-binance.json
+      --config /freqtrade/user_data/pairlist-volume-binance-usdt.json
+      --config /freqtrade/user_data/blacklist-binance.json
       --config /freqtrade/user_data/config.json
       --config /freqtrade/user_data/config.private.json
       --strategy NostalgiaForInfinityX
