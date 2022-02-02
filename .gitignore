@@ -1,3 +1,4 @@
+.DS_Store
 user_data/data*
 user_data/plot*
 user_data/*.sqlite
@@ -5,3 +6,4 @@ user_data/hyperopt.lock
 user_data/hyperopt_results
 user_data/backtest_results
 user_data/config.private.json
+user_data/logs/freqtrade.log
