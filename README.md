@@ -9,7 +9,7 @@ If not already done, install [Docker](https://docs.docker.com/engine/install/) a
 
 **Clone repository**
 ```bash
-git clone git@github.com:kerycdiaz/crypto-bot.git && cd crypto-bot
+git clone https://github.com/kerycdiaz/crypto-bot.git && cd crypto-bot
 ```
 **Generate the private configuration file**
 ```bash
