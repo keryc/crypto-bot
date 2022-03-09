@@ -2244,23 +2244,6 @@ class NostalgiaForInfinityX(IStrategy):
     def is_top_coin(self, coin_pair, row_data, top_length) -> bool:
         return coin_pair.split('/')[0] in row_data.loc['Coin #1':f"Coin #{top_length}"].values
 
-    def is_support(self, row_data) -> bool:
-        conditions = []
-        for row in range(len(row_data)-1):
-            if row < len(row_data)/2:
-                conditions.append(row_data[row] > row_data[row+1])
-            else:
-                conditions.append(row_data[row] < row_data[row+1])
-        return reduce(lambda x, y: x & y, conditions)
-
-    def is_resistance(self, row_data) -> bool:
-        conditions = []
-        for row in range(len(row_data)-1):
-            if row < len(row_data)/2:
-                conditions.append(row_data[row] < row_data[row+1])
-            else:
-                conditions.append(row_data[row] > row_data[row+1])
-        return reduce(lambda x, y: x & y, conditions)
 
     def bot_loop_start(self, **kwargs) -> None:
         """
@@ -9235,8 +9218,8 @@ class NostalgiaForInfinityX(IStrategy):
         informative_1d['open_sha'], informative_1d['close_sha'], informative_1d['low_sha'] = heikin_ashi(informative_1d, smooth_inputs=True, smooth_outputs=False, length=10)
 
         # S/R
-        res_series = informative_1d['high'].rolling(window = 5, center=True).apply(lambda row: self.is_resistance(row), raw=True).shift(2)
-        sup_series = informative_1d['low'].rolling(window = 5, center=True).apply(lambda row: self.is_support(row), raw=True).shift(2)
+        res_series = informative_1d['high'].rolling(window = 5, center=True).apply(lambda row: is_resistance(row), raw=True).shift(2)
+        sup_series = informative_1d['low'].rolling(window = 5, center=True).apply(lambda row: is_support(row), raw=True).shift(2)
         informative_1d['res_level'] = Series(np.where(res_series, np.where(informative_1d['close'] > informative_1d['open'], informative_1d['close'], informative_1d['open']), float('NaN'))).ffill()
         informative_1d['res_hlevel'] = Series(np.where(res_series, informative_1d['high'], float('NaN'))).ffill()
         informative_1d['sup_level'] = Series(np.where(sup_series, np.where(informative_1d['close'] < informative_1d['open'], informative_1d['close'], informative_1d['open']), float('NaN'))).ffill()
@@ -9303,8 +9286,8 @@ class NostalgiaForInfinityX(IStrategy):
         informative_1h['t3_avg'] = t3_average(informative_1h)
 
         # S/R
-        res_series = informative_1h['high'].rolling(window = 5, center=True).apply(lambda row: self.is_resistance(row), raw=True).shift(2)
-        sup_series = informative_1h['low'].rolling(window = 5, center=True).apply(lambda row: self.is_support(row), raw=True).shift(2)
+        res_series = informative_1h['high'].rolling(window = 5, center=True).apply(lambda row: is_resistance(row), raw=True).shift(2)
+        sup_series = informative_1h['low'].rolling(window = 5, center=True).apply(lambda row: is_support(row), raw=True).shift(2)
         informative_1h['res_level'] = Series(np.where(res_series, np.where(informative_1h['close'] > informative_1h['open'], informative_1h['close'], informative_1h['open']), float('NaN'))).ffill()
         informative_1h['res_hlevel'] = Series(np.where(res_series, informative_1h['high'], float('NaN'))).ffill()
         informative_1h['sup_level'] = Series(np.where(sup_series, np.where(informative_1h['close'] < informative_1h['open'], informative_1h['close'], informative_1h['open']), float('NaN'))).ffill()
@@ -10916,6 +10899,29 @@ def heikin_ashi(dataframe, smooth_inputs = False, smooth_outputs = False, length
         return open_sha, close_sha, low_sha
     else:
         return open_ha, close_ha, low_ha
+
+# Range midpoint acts as Support
+def is_support(row_data) -> bool:
+    conditions = []
+    for row in range(len(row_data)-1):
+        if row < len(row_data)//2:
+            conditions.append(row_data[row] > row_data[row+1])
+        else:
+            conditions.append(row_data[row] < row_data[row+1])
+    result = reduce(lambda x, y: x & y, conditions)
+    return result
+
+# Range midpoint acts as Resistance
+def is_resistance(row_data) -> bool:
+    conditions = []
+    for row in range(len(row_data)-1):
+        if row < len(row_data)//2:
+            conditions.append(row_data[row] < row_data[row+1])
+        else:
+            conditions.append(row_data[row] > row_data[row+1])
+    result = reduce(lambda x, y: x & y, conditions)
+    return result
+
 
 class Cache:
 
