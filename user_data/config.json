@@ -7,23 +7,23 @@
     "fiat_display_currency": "USD",
     "position_adjustment_enable": false,
     "unfilledtimeout": {
-        "buy": 15,
-        "sell": 15,
+        "entry": 15,
+        "exit": 15,
         "unit": "minutes"
     },
     "order_types": {
-        "buy": "limit",
-        "sell": "limit",
-        "emergencysell": "limit",
-        "forcebuy": "limit",
-        "forcesell": "limit",
+        "entry": "limit",
+        "exit": "limit",
+        "emergency_exit": "limit",
+        "force_entry": "limit",
+        "force_exit": "limit",
         "stoploss": "limit",
         "stoploss_on_exchange": false,
         "stoploss_on_exchange_interval": 60
     },
-    "bid_strategy": {
+    "entry_pricing": {
         "price_side": "ask",
-        "ask_last_balance": 0,
+        "price_last_balance": 0,
         "use_order_book": false,
         "order_book_top": 1,
         "check_depth_of_market": {
@@ -31,7 +31,7 @@
             "bids_to_ask_delta": 1
         }
     },
-    "ask_strategy": {
+    "exit_pricing": {
         "price_side": "bid",
         "use_order_book": false,
         "order_book_top": 1
