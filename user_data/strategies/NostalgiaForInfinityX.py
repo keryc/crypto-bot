@@ -115,7 +115,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 2
 
     def version(self) -> str:
-        return "v11.0.1066"
+        return "v11.0.1068"
 
     # ROI table:
     minimal_roi = {
@@ -10905,7 +10905,7 @@ class NostalgiaForInfinityX(IStrategy):
                 elif index == 9:
                     # Non-Standard protections
                     item_buy_logic.append(dataframe['ema_50_1h'] > dataframe['ema_100_1h'])
-                    item_buy_logic.append(dataframe['hl_pct_change_36'] < 1.0)
+                    item_buy_logic.append(dataframe['hl_pct_change_36'] < 0.5)
 
                     # Logic
                     item_buy_logic.append(dataframe['close'] < dataframe['sma_30'] * 0.97)
@@ -10957,6 +10957,13 @@ class NostalgiaForInfinityX(IStrategy):
                         (dataframe['cti'] < -0.9)
                         | (dataframe['ewo'] < -13.0)
                         | (dataframe['cti_1h'] < -0.98)
+                    )
+                    item_buy_logic.append(
+                        (dataframe['ewo'] < -5.0)
+                        | (dataframe['cti_1h'] < -0.9)
+                        | (dataframe['tpct_change_144'] < 0.16)
+                        | (dataframe['close'] < dataframe['ema_20'] * 0.95)
+                        | (dataframe['close'] < dataframe['bb20_2_low'] * 0.98)
                     )
 
                 # Condition #10 - Semi swing. Local dip.
@@ -12730,7 +12737,7 @@ class NostalgiaForInfinityX(IStrategy):
                 elif index == 52:
                     # Non-Standard protections (add below)
                     item_buy_logic.append(dataframe['close'] > (dataframe['sup_level_1h'] * 0.89))
-                    item_buy_logic.append(dataframe['hl_pct_change_36'] < 1.0)
+                    item_buy_logic.append(dataframe['hl_pct_change_36'] < 0.5)
 
                     # Logic
                     item_buy_logic.append(dataframe['ema_26_15m'] > dataframe['ema_12_15m'])
@@ -12813,6 +12820,14 @@ class NostalgiaForInfinityX(IStrategy):
                         | (dataframe['close'] > (dataframe['sup2_1d'] * 1.0))
                         | (dataframe['close'] < dataframe['ema_20'] * 0.95)
                         | ((dataframe['ema_26_15m'] - dataframe['ema_12_15m']) > (dataframe['open_15m'] * 0.042))
+                    )
+                    item_buy_logic.append(
+                        (dataframe['cti'] < -0.9)
+                        | (dataframe['rsi_14'] < 36.0)
+                        | (dataframe['cti_1h'] < -0.9)
+                        | (dataframe['tpct_change_144'] < 0.12)
+                        | ((dataframe['ema_26_15m'] - dataframe['ema_12_15m']) > (dataframe['open_15m'] * 0.026))
+                        | (dataframe['close_15m'] < (dataframe['bb20_2_low_15m'] * 0.99))
                     )
 
                 # Condition #53 - 15m. Semi swing. BTC not negative. Local dip.
