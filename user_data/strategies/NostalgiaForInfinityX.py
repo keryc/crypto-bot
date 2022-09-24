@@ -117,7 +117,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 3
 
     def version(self) -> str:
-        return "v11.2.191"
+        return "v11.2.193"
 
 
     # ROI table:
@@ -11197,23 +11197,19 @@ class NostalgiaForInfinityX(IStrategy):
                     )
                     item_buy_logic.append(
                         (dataframe['cmf'] > -0.1)
-                        | (dataframe['mfi'] > 46.0)
-                        | (dataframe['rsi_14'] < 22.0)
+                        | (dataframe['mfi'] > 40.0)
+                        | (dataframe['rsi_14'] < 25.0)
                         | (dataframe['cti'] < -0.9)
                         | (dataframe['cti_1h'] < -0.8)
                         | (dataframe['rsi_14_1h'] < 30.0)
-                        |
-                        (
-                            (dataframe['crsi_1h'] > 20.0)
-                            & (dataframe['tpct_change_144'] < 0.25)
-                        )
+                        | (dataframe['crsi_1h'] > 20.0)
                         | (dataframe['tpct_change_144'] < 0.16)
                         | (dataframe['close_max_48'] < (dataframe['close'] * 1.12))
                         | (dataframe['sma_200'] > dataframe['sma_200'].shift(48))
                         | (dataframe['close'] > (dataframe['sma_200'] * 0.9))
-                        | (dataframe['close'] < dataframe['ema_20'] * 0.91)
-                        | (dataframe['close'] < dataframe['bb20_2_low'] * 0.97)
-                        | ((dataframe['ema_26'] - dataframe['ema_12']) > (dataframe['open'] * 0.038))
+                        | (dataframe['close'] < dataframe['ema_20'] * 0.95)
+                        | (dataframe['close'] < dataframe['bb20_2_low'] * 0.99)
+                        | ((dataframe['ema_26'] - dataframe['ema_12']) > (dataframe['open'] * 0.022))
                     )
                     item_buy_logic.append(
                         (dataframe['btc_not_downtrend_1h'] == True)
@@ -11340,7 +11336,7 @@ class NostalgiaForInfinityX(IStrategy):
                         | ((dataframe['ema_26'] - dataframe['ema_12']) > (dataframe['open'] * 0.048))
                     )
                     item_buy_logic.append(
-                        (dataframe['cmf'] > 0.1)
+                        (dataframe['cmf'] > 0.2)
                         | (dataframe['mfi'] > 46.0)
                         | (dataframe['rsi_14'] < 12.0)
                         | (dataframe['cti'] < -0.95)
@@ -11348,17 +11344,25 @@ class NostalgiaForInfinityX(IStrategy):
                         | (dataframe['cti_1h'] < -0.8)
                         | (dataframe['rsi_14_1h'] < 20.0)
                         | (dataframe['r_14_1h'] < -97.0)
-                        | (dataframe['crsi_1h'] > 20.0)
+                        |
+                        (
+                            (dataframe['crsi_1h'] > 20.0)
+                            & (dataframe['tpct_change_144'] < 0.25)
+                        )
                         | (dataframe['tpct_change_144'] < 0.16)
                         | (dataframe['close_max_48'] < (dataframe['close'] * 1.12))
                         | (dataframe['hl_pct_change_48_1h'] < 0.16)
-                        | (dataframe['btc_pct_close_max_72_5m'] < 1.01)
+                        |
+                        (
+                            (dataframe['btc_pct_close_max_72_5m'] < 1.01)
+                            & (dataframe['btc_not_downtrend_1h'] == True)
+                        )
                         | (dataframe['close'] > (dataframe['sma_200'] * 0.9))
                         | (dataframe['close'] < dataframe['ema_20'] * 0.88)
                         | (dataframe['close'] < dataframe['bb20_2_low'] * 0.955)
                         | ((dataframe['ema_26'] - dataframe['ema_12']) > (dataframe['open'] * 0.05))
                         | (dataframe['close_15m'] < (dataframe['bb20_2_low_15m'] * 0.93))
-                        | ((dataframe['ema_26_15m'] - dataframe['ema_12_15m']) > (dataframe['open_15m'] * 0.04))
+                        | ((dataframe['ema_26_15m'] - dataframe['ema_12_15m']) > (dataframe['open_15m'] * 0.048))
                         | (dataframe['rsi_14_15m'] < 15.0)
                     )
 
