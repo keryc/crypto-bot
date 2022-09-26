@@ -117,7 +117,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 3
 
     def version(self) -> str:
-        return "v11.2.250"
+        return "v11.2.252"
 
 
     # ROI table:
@@ -11857,7 +11857,11 @@ class NostalgiaForInfinityX(IStrategy):
                             & (dataframe['close'] < (dataframe['res2_1d'] * 1.0))
                         )
                         | (dataframe['ewo'] > 8.0)
-                        | (dataframe['cmf'] > -0.1)
+                        |
+                        (
+                            (dataframe['cmf'] > -0.1)
+                            & (dataframe['btc_pct_close_max_72_5m'] < 1.05)
+                        )
                         | (dataframe['rsi_14'] < 25.0)
                         | (dataframe['r_480'] > -30.0)
                         | (dataframe['cti_1h'] < 0.5)
@@ -13967,7 +13971,11 @@ class NostalgiaForInfinityX(IStrategy):
                         | (dataframe['ema_200'] > (dataframe['ema_200'].shift(12) * 1.01))
                     )
                     item_buy_logic.append(
-                       (dataframe['ewo'] > 4.2)
+                        (
+
+                            (dataframe['ewo'] > 4.2)
+                            & (dataframe['btc_pct_close_max_72_5m'] < 1.03)
+                        )
                         | (dataframe['cti_1h'] < 0.5)
                         | (dataframe['rsi_14_1h'] < 50.0)
                         | (dataframe['hl_pct_change_48_1h'] < 0.4)
@@ -14039,13 +14047,13 @@ class NostalgiaForInfinityX(IStrategy):
                         | ((dataframe['ema_26'] - dataframe['ema_12']) > (dataframe['open'] * 0.028))
                     )
                     item_buy_logic.append(
-                        (dataframe['ewo'] > 4.8)
+                        (dataframe['ewo'] > 4.0)
                         | (dataframe['cmf'] > -0.3)
                         | (dataframe['mfi'] > 20.0)
                         | (dataframe['rsi_14'] < 25.0)
                         | (dataframe['cti_1h'] < 0.5)
                         | (dataframe['rsi_14_1h'] < 50.0)
-                        | (dataframe['crsi_1h'] > 40.0)
+                        | (dataframe['crsi_1h'] > 30.0)
                         | (dataframe['tpct_change_144'] < 0.08)
                         | (dataframe['close_max_48'] < (dataframe['close'] * 1.06))
                         | (dataframe['hl_pct_change_48_1h'] < 0.3)
