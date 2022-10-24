@@ -117,7 +117,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 3
 
     def version(self) -> str:
-        return "v11.2.597"
+        return "v11.2.599"
 
 
     # ROI table:
@@ -9507,25 +9507,25 @@ class NostalgiaForInfinityX(IStrategy):
                         return True, previous_sell_reason
             elif (previous_sell_reason in ["sell_profit_maximizer_01"]) and (current_profit >= 0.01):
                 if (0.001 <= current_profit < 0.01):
-                    if ((current_profit < (previous_profit - 0.02)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.005)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.01 <= current_profit < 0.02):
-                    if ((current_profit < (previous_profit - 0.02)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.01)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.02 <= current_profit < 0.03):
-                    if ((current_profit < (previous_profit - 0.025)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.02)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.03 <= current_profit < 0.05):
-                    if ((current_profit < (previous_profit - 0.03)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.025)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.05 <= current_profit < 0.08):
-                    if ((current_profit < (previous_profit - 0.04)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.03)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.08 <= current_profit < 0.12):
-                    if ((current_profit < (previous_profit - 0.05)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.035)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
                 elif (0.12 <= current_profit):
-                    if ((current_profit < (previous_profit - 0.06)) or (last_candle['rsi_14'] > 90.0)):
+                    if ((current_profit < (previous_profit - 0.04)) or (last_candle['rsi_14'] > 90.0)):
                         return True, previous_sell_reason
             else:
                 if (0.001 <= current_profit < 0.01):
@@ -9687,7 +9687,7 @@ class NostalgiaForInfinityX(IStrategy):
                     return f"{signal_name} ( {enter_tag})"
         else:
             if (
-                    (current_profit >= 0.03)
+                    (current_profit >= 0.04)
             ):
                 previous_profit = None
                 if self.target_profit_cache is not None and pair in self.target_profit_cache.data:
@@ -16467,12 +16467,23 @@ class NostalgiaForInfinityX(IStrategy):
                         | (dataframe['tpct_change_144'] < 0.18)
                     )
                     item_buy_logic.append(
-                        (dataframe['btc_not_downtrend_1h'] == True)
+                        (
+                            (dataframe['btc_not_downtrend_1h'] == True)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
                         | (dataframe['cmf'] > 0.0)
                         | (dataframe['cti_1h'] < 0.8)
                         | (dataframe['r_480_1h'] < -30.0)
-                        | (dataframe['crsi_1h'] > 30.0)
-                        | (dataframe['tpct_change_144'] < 0.08)
+                        |
+                        (
+                            (dataframe['crsi_1h'] > 30.0)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
+                        |
+                        (
+                            (dataframe['tpct_change_144'] < 0.08)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
                         | (dataframe['hl_pct_change_48_1h'] < 0.25)
                         | (dataframe['ema_20'] > dataframe['ema_50'])
                         | (dataframe['close'] > dataframe['ema_26'])
