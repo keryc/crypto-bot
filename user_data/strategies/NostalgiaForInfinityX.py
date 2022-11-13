@@ -116,7 +116,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 3
 
     def version(self) -> str:
-        return "v11.2.788"
+        return "v11.2.790"
 
 
     # ROI table:
@@ -208,7 +208,7 @@ class NostalgiaForInfinityX(IStrategy):
     stop_thresholds_btc = [-0.18, -0.18, -0.18]
 
     # Additional vigorous dump checks
-    insanity_dump_checks = True
+    insanity_dump_checks = False
 
     # Profit maximizer
     profit_max_enabled = True
@@ -18567,8 +18567,16 @@ class NostalgiaForInfinityX(IStrategy):
                         )
                         | (dataframe['cti_1h'] < -0.5)
                         | (dataframe['rsi_14_1h'] < 40.0)
-                        | (dataframe['r_14_1h'] < -90.0)
-                        | (dataframe['tpct_change_144'] < 0.12)
+                        |
+                        (
+                            (dataframe['r_14_1h'] < -90.0)
+                            & (dataframe['rsi_14'] < 36.0)
+                        )
+                        |
+                        (
+                            (dataframe['tpct_change_144'] < 0.12)
+                            & (dataframe['rsi_14'] < 36.0)
+                        )
                         |
                         (
                             (dataframe['close_max_48'] < (dataframe['close'] * 1.1))
@@ -18576,7 +18584,11 @@ class NostalgiaForInfinityX(IStrategy):
                             & (dataframe['ema_200_pct_change_144'] < 0.05)
                             & (dataframe['rsi_14'] < 36.0)
                         )
-                        | (dataframe['hl_pct_change_48_1h'] < 0.36)
+                        |
+                        (
+                            (dataframe['hl_pct_change_48_1h'] < 0.36)
+                            & (dataframe['rsi_14'] < 36.0)
+                        )
                         |
                         (
                             (dataframe['sma_200'] > dataframe['sma_200'].shift(48))
@@ -21416,7 +21428,7 @@ class NostalgiaForInfinityX(IStrategy):
                 )
                 # Extra dump check
                 if (self.insanity_dump_checks):
-                    item_buy_logic.append((dataframe['btc_pct_close_max_24_5m'] < 1.03))
+                    item_buy_logic.append((dataframe['btc_pct_close_max_24_5m'] < 1.025))
                 item_buy = reduce(lambda x, y: x & y, item_buy_logic)
                 dataframe.loc[item_buy, 'enter_tag'] += f"{index} "
                 conditions.append(item_buy)
