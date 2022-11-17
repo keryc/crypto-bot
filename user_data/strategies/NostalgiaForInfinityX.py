@@ -116,7 +116,7 @@ class NostalgiaForInfinityX(IStrategy):
     INTERFACE_VERSION = 3
 
     def version(self) -> str:
-        return "v11.2.848"
+        return "v11.2.850"
 
 
     # ROI table:
@@ -212,6 +212,9 @@ class NostalgiaForInfinityX(IStrategy):
 
     # Profit maximizer
     profit_max_enabled = True
+
+    # Maximizer threshold
+    profit_max_threshold = 0.04
 
     # Rapid more tags
     rapid_mode_tags = ['66', '67', '68', '69', '70', '71', '72']
@@ -2395,6 +2398,8 @@ class NostalgiaForInfinityX(IStrategy):
             self.stop_thresholds_btc = self.config['stop_thresholds_btc']
         if ('insanity_dump_checks' in self.config):
             self.insanity_dump_checks = self.config['insanity_dump_checks']
+        if ('profit_max_threshold' in self.config):
+            self.profit_max_threshold = self.config['profit_max_threshold']
         if self.target_profit_cache is None:
             bot_name = ""
             if ('bot_name' in self.config):
@@ -9688,7 +9693,7 @@ class NostalgiaForInfinityX(IStrategy):
                     return f"{signal_name} ( {enter_tag})"
         else:
             if (
-                    (current_profit >= 0.04)
+                    (current_profit >= self.profit_max_threshold)
             ):
                 previous_profit = None
                 if self.target_profit_cache is not None and pair in self.target_profit_cache.data:
@@ -15595,13 +15600,20 @@ class NostalgiaForInfinityX(IStrategy):
                             & (dataframe['btc_pct_close_max_72_5m'] < 1.03)
                         )
                         | (dataframe['rsi_14'] < 16.0)
-                        | (dataframe['crsi'] > 16.0)
+                        |
+                        (
+                            (dataframe['crsi'] > 16.0)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
                         | (dataframe['ewo'] > 4.4)
                         | (dataframe['cti_1h'] < 0.75)
                         | (dataframe['rsi_14_1h'] < 50.0)
                         | (dataframe['r_14_1h'] < -75.0)
-                        | (dataframe['crsi_1h'] > 20.0)
-                        | (dataframe['crsi_1h'] > 10.0)
+                        |
+                        (
+                            (dataframe['crsi_1h'] > 20.0)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
                         | (dataframe['tpct_change_144'] < 0.12)
                         | (dataframe['close_max_48'] < (dataframe['close'] * 1.12))
                         | (dataframe['hl_pct_change_48_1h'] < 0.25)
@@ -15609,9 +15621,14 @@ class NostalgiaForInfinityX(IStrategy):
                         (
                             (dataframe['btc_pct_close_max_72_5m'] < 1.03)
                             & (dataframe['btc_not_downtrend_1h'] == True)
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
                         )
                         | (dataframe['ema_200'] > (dataframe['ema_200'].shift(12) * 1.01))
-                        | (dataframe['close'] > (dataframe['sma_200_1h'] * 0.9))
+                        |
+                        (
+                            (dataframe['close'] > (dataframe['sma_200_1h'] * 0.9))
+                            & (dataframe['ema_200_pct_change_288'] < 0.12)
+                        )
                         | (dataframe['close'] < dataframe['sma_30'] * 0.9)
                         | (dataframe['close'] < dataframe['ema_20'] * 0.92)
                         | (dataframe['close'] < dataframe['bb20_2_low'] * 0.99)
