@@ -39,7 +39,7 @@ If not already done, install Make: `sudo apt install make`<br>
 
 **Download the pairs you need to perform backtesting**
 ```bash
-make download-data EXCHANGE=binance TIMERANGE=20210101-20210201 TIMEFRAME='5m'
+make download-data EXCHANGE=binance TIMERANGE=20220101-20220201 TIMEFRAME='5m'
 ```
 
 **Know the downloaded pairs and their temporality**
@@ -49,7 +49,7 @@ make list-data EXCHANGE=binance
 
 **Running backtesting for a defined strategy**
 ```bash
-make test EXCHANGE=binance STRATEGY=SampleStrategy
+make backtesting EXCHANGE=binance STRATEGY=SampleStrategy TIMERANGE=20220101-20220201 TIMEFRAME='5m'
 ```
 
 ***If you want to backtest the `NostalgiaForInfinityX` strategy you must download the data for `'5m 15m 1h 1d'`***
