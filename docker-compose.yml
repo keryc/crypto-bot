@@ -2,11 +2,10 @@
 version: '3'
 services:
   freqtrade:
-    image: freqtradeorg/freqtrade:stable
+    image: freqtradeorg/freqtrade:stable_plot
     # image: freqtradeorg/freqtrade:develop
     # Use plotting image
     # image: freqtradeorg/freqtrade:develop_plot
-    # image: freqtradeorg/freqtrade:stable_plot
     # Build step - only needed when additional dependencies are needed
     # build:
     #   context: .
@@ -20,13 +19,23 @@ services:
     # before enabling this.
     ports:
       - "127.0.0.1:8080:8080"
+
     # Default command used when running `docker compose up`
+    # command: >
+    #   trade
+    #   --logfile /freqtrade/user_data/logs/freqtrade.log
+    #   --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
+    #   --config /freqtrade/user_data/config.json
+    #   --config /freqtrade/user_data/config.private.json
+    #   --strategy SampleStrategy
+
+    # Command to run NostalgiaForInfinityX strategy
     command: >
       trade
       --logfile /freqtrade/user_data/logs/freqtrade.log
       --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
-      --config /freqtrade/user_data/pairlist-volume-binance-usdt.json
-      --config /freqtrade/user_data/blacklist-binance.json
       --config /freqtrade/user_data/config.json
       --config /freqtrade/user_data/config.private.json
+      --config /freqtrade/user_data/strategies/NostalgiaForInfinityX/pairlist-volume-binance-usdt.json
+      --config /freqtrade/user_data/strategies/NostalgiaForInfinityX/blacklist-binance.json
       --strategy NostalgiaForInfinityX
