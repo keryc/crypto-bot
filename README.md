@@ -13,7 +13,7 @@ git clone https://github.com/kerycdiaz/crypto-bot.git && cd crypto-bot
 ```
 **Generate the private configuration file**
 ```bash
-cp user_data/config.private.json.template user_data/config.private.json
+cp templates/config.private.json.template user_data/config.private.json
 ```
 **Start Crypto Bot.** *(By default the mode is enabled **Dry-Run**)*
 ```bash
@@ -25,9 +25,9 @@ To access FreqUI go to `http://localhost:8080/` and register a new bot with the 
 ## Automatically Update Crypto Bot
 
 ```bash
+cp templates/update-crypto-bot.sh.template scripts/update-crypto-bot.sh
 cd ${HOME}/crypto-bot/scripts
-cp update-crypto-bot.sh.template update-crypto-bot.sh
-# In update-crypto-bot.sh, add TG_TOKEN, TG_CHAT_ID and confirm the CRYPTO_BOT_PATH
+# In update-crypto-bot.sh, add TG_TOKEN, TG_CHAT_ID and confirm the CRYPTO_BOT_PATH (Path where you cloned your project)
 chmod -x active-crontab.sh && ./active-crontab.sh
 ```
 

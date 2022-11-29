@@ -7,3 +7,6 @@ user_data/hyperopt_results
 user_data/backtest_results
 user_data/config.private.json
 user_data/logs/freqtrade.log
+nfi-profit_maximizer-freqtrade-binance-USDT-(backtest).json
+tradesv3.sqlite-shm
+tradesv3.sqlite-wal
