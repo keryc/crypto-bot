@@ -6,7 +6,7 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Fetch release version
         run: |
           curl -O https://raw.githubusercontent.com/iterativv/NostalgiaForInfinity/main/NostalgiaForInfinityX.py && \
@@ -17,7 +17,7 @@ jobs:
           mv pairlist-volume-binance-usdt.json user_data/strategies/NostalgiaForInfinityX
       - name: Check for modified files
         id: git-check
-        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
+        run: echo "modified=$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")" >> $GITHUB_OUTPUT
       - name: Commit latest release version
         if: steps.git-check.outputs.modified == 'true'
         run: |
