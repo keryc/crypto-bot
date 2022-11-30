@@ -5,7 +5,7 @@
 
 ## Getting Started
 
-If not already done, install [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/)
+If not already done, install [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/other/)
 
 **Clone repository**
 ```bash
