@@ -32,7 +32,6 @@
         "username": "Freqtrader",
         "password": "SuperSecret1!"
     },
-    ,
     "bot_name": "freqtrade",
     "initial_state": "running",
     "force_entry_enable": false,
